@@ -16,15 +16,15 @@ eps0 = 1.0
 omega_pe = 1.0
 dt = 2e-3
 tmax = 80.0
-ts = []#時間リスト
-Eenergy = []#電場エネルギー
-n_history = []#密度の時間変化
-u_history = []#速度の時間変化
-p_history = []#圧力の時間変化
-dqdx_history = []#∂q/∂xの時間変化
-Ex_history = []#電場の時間変化
+ts = []# time list
+Eenergy = []#  electric field energy
+n_history = []# density time evolution
+u_history = []# velocity time evolution
+p_history = []# pressure time evolution
+dqdx_history = []#∂q/∂x time evolution
+Ex_history = []# electric field time evolution
 
-L_x = 2*np.pi/k
+L_x = 2*np.pi/k 
 N_x = 64
 dx = L_x/N_x
 x = np.linspace(0, L_x, N_x, endpoint=False)
@@ -38,8 +38,8 @@ p = n*T0
 Ex = (qe * n0 * A / (eps0 * k)) * np.sin(k*x)
 #Ex = np.zeros_like(x)
 
-#微分演算子 
-# #空間方向には差分法ではなくフーリエ変換を用いる 
+# deifferential operator 
+# use fourier transform in space direction instead of finite difference 
 kvec = 2*np.pi*np.fft.fftfreq(N_x, d=dx)#微分演算子のための波数ベクトル 
 
 
