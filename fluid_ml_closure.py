@@ -51,14 +51,14 @@ def d_dx(f):
 num_modes = 16 # フーリエ空間で使用するモードの数
 num_channels = 64 # インプットとアウトプットの間の層の数
 device = 'cpu'
-ckpt = torch.load('machine_learning/learnedmodel_from_vlasov_colab_ep90.pth', map_location=device, weights_only=False)
+ckpt = torch.load('machine_learning/learnedmodel_from_vlasov.pth', map_location=device, weights_only=False)
 model = FNO(
     n_modes=(num_modes,), n_layers=4,hidden_channels=num_channels, in_channels= 3, out_channels=1
 ).to(device)
 model.load_state_dict(ckpt)
 model.eval()
 
-sc = np.load("machine_learning/scaler_ep90.npz")
+sc = np.load("machine_learning/scaler.npz")
 mu_n,  sig_n  = sc["mu_n"],  sc["sig_n"]
 mu_u,  sig_u  = sc["mu_u"],  sc["sig_u"]
 mu_p,  sig_p  = sc["mu_p"],  sc["sig_p"]
