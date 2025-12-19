@@ -172,7 +172,7 @@ Energy_history = np.array(Energy_history)   # (Nt,)
 
 # まとめて .npz で保存（バイナリ。後で Python から読みやすい）
 np.savez(
-    f"{outdir}/moments_training.npz",
+    f"{outdir}/moments_training.npz", #ここをtrainingとtestで変更する必要あり
     A_data=A * np.ones(len(t_history)),
     t=t_history,
     x=x,
