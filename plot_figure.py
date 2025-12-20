@@ -2,11 +2,13 @@ from cProfile import label
 import numpy as np
 import matplotlib.pyplot as plt
 import cmocean
+import os
 
 k = 0.35
 tmax = 40
 L = 2 * np.pi / k
-
+outdir = 'picture'
+os.makedirs(outdir,exist_ok=True)
 # === 改良版 spacetime_plot ===
 def spacetime_plot(ax, data, title="", cmap="RdBu_r", vmin=None, vmax=None):
     im = ax.imshow(np.array(data).T, aspect='auto', origin='lower',
@@ -38,7 +40,7 @@ spacetime_plot(axs[1], dq_m, "Fluid + ML (FNO): ∂q/∂x Prediction")
 spacetime_plot(axs[2], np.abs(dq_v - dq_m), "Absolute Error |Δ(∂q/∂x)|", cmap=cmocean.cm.balance)
 fig.suptitle("Comparison of Heat-Flux Gradient ∂q/∂x", fontsize=12, y=0.98)
 plt.tight_layout(rect=[0,0,1,0.97])
-plt.savefig("picture/comparing/A=0.1_k=0.35_ml/dq_dx.png", dpi=300)
+plt.savefig("picture/dq_dx_comparing.png", dpi=300)
 plt.close()
 
 # === Fig.3: 電場エネルギー ===
@@ -60,7 +62,7 @@ axs[1].legend()
 
 fig.suptitle("Electric Field Energy Evolution", fontsize=12, y=0.98)
 plt.tight_layout(rect=[0,0,1,0.97])
-plt.savefig('picture/comparing/A=0.1_k=0.35_ml/Eenergy_compare.png', dpi=300)
+plt.savefig('picture/Eenergy_comparing.png', dpi=300)
 plt.close()
 
 # === Fig.5: n,u,p の比較 ===
@@ -78,7 +80,7 @@ for i in range(3):
         spacetime_plot(axs[i,j], data_sets[i][j], f"{titles[i][j]}\n{labels[i]}",cmap=cmocean.cm.balance)
 fig.suptitle("Comparison of Fluid Moments (n, u, p)", fontsize=12, y=0.98)
 plt.tight_layout(rect=[0,0,1,0.97])
-plt.savefig('picture/comparing/A=0.1_k=0.35_ml/moments_compare.png', dpi=300)
+plt.savefig('picture/moments_comparing.png', dpi=300)
 plt.close()
 
 
@@ -91,5 +93,5 @@ for i, (v, m, h, qname) in enumerate(zip([n_v,u_v,p_v],[n_m,u_m,p_m],[n_h,u_h,p_
     spacetime_plot(axs[i,1], np.abs(v-h), f'HP Error: {qname}', cmap=cmocean.cm.balance)
 fig.suptitle("Absolute Errors of Fluid Moments relative to Vlasov", fontsize=12, y=0.98)
 plt.tight_layout(rect=[0,0,1,0.97])
-plt.savefig('picture/comparing/A=0.1_k=0.35_ml/abserror.png', dpi=300)
+plt.savefig('picture/abserror.png', dpi=300)
 plt.close()

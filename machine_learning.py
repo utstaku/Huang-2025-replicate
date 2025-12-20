@@ -35,11 +35,11 @@ dq_dx_data_test = test_data["dq_dx"]
 batch_size = 32 # バッチサイズ
 n_train = len(n_data) # 学習に使用するデータ数
 n_test = len(n_data_test) # テストに使用するデータ数
-num_epoch = 70 # エポック数
+num_epoch = 10 # エポック数
 num_modes = 16 # フーリエ空間で使用するモードの数
 num_channels = 64 # インプットとアウトプットの間の層の数
 in_channels = 3 # インプット数
-device = 'cuda' if torch.cuda.is_available() else 'cpu' # use GPU if available
+device = 'cpu' # use GPU if available
 print("Using device:", device)
 outdir = "machine_learning"
 os.makedirs(outdir, exist_ok=True)
@@ -133,7 +133,7 @@ model = FNO(
     n_modes=(num_modes,), n_layers=4,hidden_channels=num_channels, in_channels=in_channels, out_channels=1
 ).to(device)
 
-optimizer = AdamW(model.parameters(), lr=1e-3, weight_decay=1e-4)
+optimizer = AdamW(model.parameters(), lr=5e-3, weight_decay=1e-4)
 scheduler = torch.optim.lr_scheduler.CosineAnnealingLR(optimizer, T_max=10)
 
 train_loss = l2loss
@@ -178,7 +178,7 @@ q_pred = q_pred.detach().cpu().numpy()
 print("length of q_pred = ",len(q_pred))
 print("shape of q_pred = ",q_pred.shape)
 #学習済みのモデルの保存
-torch.save(model.to('cuda').state_dict(), "machine_learning/learnedmodel_from_vlasov.pth")
+torch.save(model.to(device).state_dict(), "machine_learning/learnedmodel_from_vlasov.pth")
 
 # plot
 fig, axs = plt.subplots(3, 1, figsize=(10, 10))

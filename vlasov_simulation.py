@@ -11,7 +11,7 @@ k = 0.35
 N = 64         # x方向のgrid数
 M = 128         # v方向のgrid数(半分)
 Vmax = 6.0     # vの打ち切り速度
-dt = 5e-3       # time step (ω_pe^{-1} units)
+dt = 2e-3       # time step (ω_pe^{-1} units) training:5e-3, test:2e-3
 tmax = 40.0    # end time (enough to see at least one recurrence)
 
 # 保存用ディレクトリ（図と同じフォルダ）
@@ -172,7 +172,7 @@ Energy_history = np.array(Energy_history)   # (Nt,)
 
 # まとめて .npz で保存（バイナリ。後で Python から読みやすい）
 np.savez(
-    f"{outdir}/moments_training.npz", #ここをtrainingとtestで変更する必要あり
+    f"{outdir}/moments_test.npz", #ここをtrainingとtestで変更する必要あり
     A_data=A * np.ones(len(t_history)),
     t=t_history,
     x=x,

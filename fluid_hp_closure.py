@@ -81,13 +81,13 @@ def rk4_step(n,u,p,Ex,dt):
 
 #time evolution
 t = 0.0
-ts = [t]
-Eenergy = [0.5*L_x*np.mean(Ex**2)]
-n_history = [n.copy()]
-u_history = [u.copy()]
-p_history = [p.copy()]
-dq_dx_history = [HPclosure(n,p).copy()]
-Ex_history = [Ex.copy()]
+ts = []
+Eenergy = []
+n_history = []
+u_history = []
+p_history = []
+dq_dx_history = []
+Ex_history = []
 while t < tmax:
     n,u,p,Ex = rk4_step(n,u,p,Ex,dt)
     t += dt
