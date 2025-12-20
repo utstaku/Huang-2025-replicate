@@ -17,3 +17,5 @@ fluid_mlclosure.pyの実行
 plot.pyの実行
 
 という手順で再現実装が完了します。
+
+machine learningはcpu環境でも動作することが確認できました。
